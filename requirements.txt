@@ -1,9 +1,5 @@
 gTTS
 loguru
-# numpy 1.23.2 is not required for the web teleop interface, but is required
-# for stretch_body. If we diden't include it here, pin would update
-# to the latest version of numpy, breaking stretch_body.
-numpy==1.23.2
 pin
 PyAudio==0.2.14
 pydub

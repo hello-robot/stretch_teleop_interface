@@ -197,12 +197,58 @@ The 'predictive display' mode will overlay a trajectory over the video stream th
     <img src="documentation/assets/tutorial/predictive-display.gif">
 </p>
 
-## Gripper Camera
+## Gripper Camera View
 
 There are two quick actions for the gripper camera view: (1) `center wrist` and (2) `stow wrist`. Center wrist will turn the wrist out and align it with the arm. Stow wrist will rotate the wrist to the stow position.
 
 <p align="center">
     <img src="documentation/assets/tutorial/quick-actions.gif">
+</p>
+
+### Expanded Gripper View
+
+Users can toggle between the default gripper view and an expanded gripper view. The expanded gripper view cam be useful e.g., if the robot is holding a large object that is obscuring much of the gripper camera's view.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/expanded_gripper_view.gif">
+</p>
+
+### Gripper Depth Overlay
+
+Users can toggle on/off a depth overlay, which highlights all points that are within the two fingers of the gripper. This can be useful to gauge when you have moved far enough to grasp an object.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/gripper_depth_overlay.gif">
+</p>
+
+## Head Realsense Camera View
+
+The head Realsense camera view needs to be added through the customization menu. It has the same head pan/tilt buttons, "Quick Look" buttons, and "Follow Gripper" button as the Wide-Angle Camera.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/head_realsense_camera.gif">
+</p>
+
+### Head Realsense Depth Overlay
+
+The head Realsense camera also has a depth overlay, which highlights all points that are close enough to the robot to be graspable.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/head_realsense_depth_overlay.gif">
+</p>
+
+### Click-to-Pregrasp
+
+The head Realsense camera allows users to select a point in the camera view, and have the robot automatically move to align with that point. This can be done with the gripper horizontal...
+
+<p align="center">
+    <img src="documentation/assets/tutorial/head_realsense_click_to_pregrasp_horizontal.gif">
+</p>
+
+...or with the gripper vertical.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/head_realsense_click_to_pregrasp_vertical.gif">
 </p>
 
 ## Button Pads
@@ -231,6 +277,54 @@ The action modes can be selected in the dropdown in the top-left corner of the i
 - **Step Actions**: When you click, Stretch will move a fixed distance based on the selected speed.
 - **Press-Release**: Stretch will move while you are pressing and holding the button and will stop when you release.
 - **Click-Click**: Stretch will start moving when you click and will stop when you click again. You can also stop Stretch by moving the cursor outside the button you clicked.
+
+## Movement Recorder
+
+There is a movement recorder that can be used to save and playback robot arm motions. One way of using it is to record a goal state for the robot arm to move to. To do so, start recording, keep the arm stationary for a few seconds, and then stop recording.
+
+Recording a "Tuck Arm" goal:
+
+<p align="center">
+    <img src="documentation/assets/tutorial/movement_recorder_tuck_arm_record.gif">
+</p>
+
+Moving to the "Tuck Arm" goal:
+
+<p align="center">
+    <img src="documentation/assets/tutorial/movement_recorder_tuck_arm_playback.gif">
+</p>
+
+The movement recorder can also be used to record entire movements. In this case, start recording, move the arm, and then stop recording when the motion is done.
+
+## Audio Streaming
+
+To better facilitate beyond line-of-sight operation, the web interface enables bi-directional audio interaction.
+
+### Robot-to-Operator
+
+Audio from the robot can be streamed to the operator directly through the robot's microphone, by (un)muting audio in the web interface.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/robot_to_operator_audio_streaming.gif">
+</p>
+
+### Operator-to-Robot Text-to-Speech
+
+The operator can send text to be spoken on the robot. The operator can also save commonly-used text, and can stop an ongoing utterance. When used in conjunction with robot-to-operator audio streaming, the operator can also hear when the robot has finished speaking.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/text_to_speech.gif">
+</p>
+
+Text-to-speech can also be performed with a command-line interface, by running `ros2 run stretch_web_teleop text_to_speech_ui.py`. This is particulalry useful in situations where a separate operator is controlling the robot and a separate operator is controlling speech interactions.
+
+<p align="center">
+    <img src="documentation/assets/tutorial/text_to_speech_cli.gif">
+</p>
+
+## Using a Tablet as the End Effector
+
+Stay tuned for instructions on using the web interface with a tablet as an end effector!
 
 # Contributing
 

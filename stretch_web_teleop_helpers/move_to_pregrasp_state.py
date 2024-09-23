@@ -40,9 +40,10 @@ class MoveToPregraspState(Enum):
     ROTATE_BASE = 3
     HEAD_PAN = 4
     LIFT_ARM = 5
-    MOVE_WRIST = 6
-    LENGTHEN_ARM = 7
-    TERMINAL = 8
+    MOVE_WRIST_YAW = 6
+    MOVE_WRIST_PITCH_ROLL = 7
+    LENGTHEN_ARM = 8
+    TERMINAL = 9
 
     @staticmethod
     def get_state_machine(
@@ -87,11 +88,13 @@ class MoveToPregraspState(Enum):
         # If the goal is near the base and we're doing a vertical grasp, lengthen the arm before deploying the wrist.
         if goal_lift_near_base:
             states.append([MoveToPregraspState.LENGTHEN_ARM])
-            states.append([MoveToPregraspState.MOVE_WRIST])
+            states.append([MoveToPregraspState.MOVE_WRIST_YAW])
+            states.append([MoveToPregraspState.MOVE_WRIST_PITCH_ROLL])
             states.append([MoveToPregraspState.LIFT_ARM])
         else:
             states.append([MoveToPregraspState.LIFT_ARM])
-            states.append([MoveToPregraspState.MOVE_WRIST])
+            states.append([MoveToPregraspState.MOVE_WRIST_YAW])
+            states.append([MoveToPregraspState.MOVE_WRIST_PITCH_ROLL])
             states.append([MoveToPregraspState.LENGTHEN_ARM])
         states.append([MoveToPregraspState.TERMINAL])
 
@@ -187,11 +190,18 @@ class MoveToPregraspState(Enum):
             ][1]
         elif self == MoveToPregraspState.LIFT_ARM:
             joints_for_position_control[Joint.ARM_LIFT] = ik_solution[Joint.ARM_LIFT]
-        elif self == MoveToPregraspState.MOVE_WRIST:
+        elif self == MoveToPregraspState.MOVE_WRIST_YAW:
             joints_for_position_control.update(get_gripper_configuration(closed=False))
-            joints_for_position_control.update(
-                get_pregrasp_wrist_configuration(horizontal_grasp)
-            )
+            joints_for_position_control[
+                Joint.WRIST_YAW
+            ] = get_pregrasp_wrist_configuration(horizontal_grasp)[Joint.WRIST_YAW]
+        elif self == MoveToPregraspState.MOVE_WRIST_PITCH_ROLL:
+            joints_for_position_control[
+                Joint.WRIST_PITCH
+            ] = get_pregrasp_wrist_configuration(horizontal_grasp)[Joint.WRIST_PITCH]
+            joints_for_position_control[
+                Joint.WRIST_ROLL
+            ] = get_pregrasp_wrist_configuration(horizontal_grasp)[Joint.WRIST_ROLL]
         elif self == MoveToPregraspState.LENGTHEN_ARM:
             joints_for_position_control[Joint.ARM_L0] = ik_solution[Joint.ARM_L0]
 

@@ -26,6 +26,9 @@ import { PopupModal } from "../basic_components/PopupModal";
 import { Tooltip } from "operator/tsx/static_components/Tooltip";
 import { isMobile } from "react-device-detect";
 import { RadioFunctions, RadioGroup } from "../basic_components/RadioGroup";
+import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
+import SaveIcon from "@mui/icons-material/Save";
 
 export enum MapFunction {
     GetMap,
@@ -353,7 +356,7 @@ const UnderMapButtons = (props: {
                         }}
                     >
                         <span>Start</span>
-                        <span className="material-icons">play_circle</span>
+                        <PlayCircleIcon/>
                     </button>
                 )}
                 {play && (
@@ -365,7 +368,7 @@ const UnderMapButtons = (props: {
                         }}
                     >
                         <span>Cancel</span>
-                        <span className="material-icons">cancel</span>
+                        <CancelIcon/>
                     </button>
                 )}
                 <button
@@ -380,7 +383,7 @@ const UnderMapButtons = (props: {
                     }}
                 >
                     <span hidden={props.hideLabels}>Save new destination</span>
-                    <span className="material-icons">save</span>
+                    <SaveIcon/>
                 </button>
             </div>
             <RadioGroup functs={radioFuncts} />
@@ -406,7 +409,7 @@ const UnderMapButtons = (props: {
                     }}
                 >
                     <span hidden={props.hideLabels}>Save new destination</span>
-                    <span className="material-icons">save</span>
+                    <SaveIcon/>
                 </div>
                 {!play && (
                     <div
@@ -433,7 +436,7 @@ const UnderMapButtons = (props: {
                         }}
                     >
                         <span>Play</span>
-                        <span className="material-icons">play_circle</span>
+                        <PlayCircleIcon/>
                     </div>
                 )}
                 {play && (
@@ -445,7 +448,7 @@ const UnderMapButtons = (props: {
                         }}
                     >
                         <span>Cancel</span>
-                        <span className="material-icons">cancel</span>
+                        <CancelIcon/>
                     </div>
                 )}
                 <CheckToggleButton

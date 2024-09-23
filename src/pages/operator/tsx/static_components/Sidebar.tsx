@@ -499,9 +499,9 @@ const SidebarComponentProvider = (props: SidebarComponentProviderProps) => {
             case ComponentType.CameraView:
                 (definition as ParentComponentDefinition).children = [];
                 break;
-            case ComponentType.Map:
-                (definition as MapDefinition).storageHandler = storageHandler;
-                break;
+            // case ComponentType.Map:
+            //     (definition as MapDefinition).storageHandler = storageHandler;
+            //     break;
         }
 
         props.onSelect(definition);

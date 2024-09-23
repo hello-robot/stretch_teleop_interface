@@ -2,6 +2,7 @@ import React from "react";
 import { className } from "shared/util";
 import "operator/css/RadioGroup.css";
 import { isMobile } from "react-device-detect";
+import DeleteIcon from "@mui/icons-material/DeleteOutline";
 
 export const RadioButton = (props: {
     label: string;

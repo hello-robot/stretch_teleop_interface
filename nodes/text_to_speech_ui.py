@@ -116,7 +116,7 @@ class TextToSpeechUserInterfaceNode(Node):
         # Create the message
         msg = TextToSpeech(
             text=message,
-            is_slow=False,
+            is_slow=True,
             override_behavior=(
                 TextToSpeech.OVERRIDE_BEHAVIOR_INTERRUPT
                 if len(message) == 0

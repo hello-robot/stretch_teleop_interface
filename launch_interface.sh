@@ -23,6 +23,7 @@ fi
 
 stretch_free_robot_process.py;
 ./stop_interface.sh
+./configure_audio.sh -m alsa_input.usb-K66_K66_20190805V001-00.analog-stereo
 sudo udevadm control --reload-rules && sudo udevadm trigger
 source /opt/ros/humble/setup.bash
 source ~/ament_ws/install/setup.bash

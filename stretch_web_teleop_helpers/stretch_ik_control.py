@@ -144,7 +144,7 @@ class StretchIKControl:
         # NOTE: The CMU implementation had controller gains of 0.2 on the
         # telescoping arm joints and 1.0 otherwise, but for this implementation
         # 1.0 everywhere seems to work fine.
-        self.K = np.eye(len(self.all_joints), dtype=np.float64)
+        self.K = np.eye(len(self.all_joints), dtype=float)
         base_rotation_i = self.all_joints.index(Joint.BASE_ROTATION)
         self.K[base_rotation_i, base_rotation_i] = 1.0
 
@@ -507,9 +507,9 @@ class StretchIKControl:
         rate_hz: float = 15.0,
         timeout_secs: float = 10.0,
         check_cancel: Callable[[], bool] = lambda: False,
-        err_callback: Optional[Callable[[npt.NDArray[np.float64]], None]] = None,
+        err_callback: Optional[Callable[[npt.NDArray[float]], None]] = None,
         get_cartesian_mask: Optional[
-            Callable[[npt.NDArray[np.float64]], npt.NDArray[np.bool]]
+            Callable[[npt.NDArray[float]], npt.NDArray[bool]]
         ] = None,
     ) -> Generator[MotionGeneratorRetval, None, None]:
         """
@@ -752,9 +752,9 @@ class StretchIKControl:
     def __reached_termination(
         self,
         termination: TerminationCriteria,
-        err: Optional[npt.NDArray[np.float64]],
-        vel: Optional[npt.NDArray[np.float64]],
-        cartesian_mask: Optional[npt.NDArray[np.bool]] = None,
+        err: Optional[npt.NDArray[float]],
+        vel: Optional[npt.NDArray[float]],
+        cartesian_mask: Optional[npt.NDArray[bool]] = None,
     ) -> bool:
         """
         Check if the termination criteria has been reached.
@@ -795,9 +795,9 @@ class StretchIKControl:
         self,
         goal: PoseStamped,
         timeout: Duration,
-        q_all: Optional[npt.NDArray[np.float64]] = None,
+        q_all: Optional[npt.NDArray[float]] = None,
         publish_fk: bool = False,
-    ) -> Tuple[bool, npt.NDArray[np.float64]]:
+    ) -> Tuple[bool, npt.NDArray[float]]:
         """
         Get the error between the goal pose and the current end effector pose.
         Returns the error in base link frame.
@@ -816,7 +816,7 @@ class StretchIKControl:
         Returns
         -------
         bool: Whether the error was successfully calculated.
-        npt.NDArray[np.float64]: The error in base link frame. The error is a 6D vector
+        npt.NDArray[float]: The error in base link frame. The error is a 6D vector
             consisting of the translation and rotation errors.
         """
         # Start the timer
@@ -859,7 +859,7 @@ class StretchIKControl:
             return False, np.zeros(6)
 
         # Get the error in base frame
-        err = np.zeros(6, dtype=np.float64)
+        err = np.zeros(6, dtype=float)
         err[:3] = np.array(
             [
                 goal_base.pose.position.x - ee_pos[0],
@@ -886,7 +886,7 @@ class StretchIKControl:
 
     def __execute_velocities(
         self,
-        velocities: npt.NDArray[np.float64],
+        velocities: npt.NDArray[float],
         move_base: bool,
         move_arm: bool,
         rate_hz: float = 10.0,
@@ -1270,7 +1270,7 @@ class StretchIKControl:
         self,
         joint_position_overrides: Dict[Joint, float] = {},
         all_joints: bool = False,
-    ) -> npt.NDArray[np.float64]:
+    ) -> npt.NDArray[float]:
         """
         Get the current states of the controllable joints.
 
@@ -1302,7 +1302,7 @@ class StretchIKControl:
             else:
                 # Set dummy joints to 0.0
                 joint_positions.append(0.0)
-        return np.array(joint_positions, dtype=np.float64)
+        return np.array(joint_positions, dtype=float)
 
     def __get_random_q(self, all_joints: bool = False):
         """
@@ -1327,4 +1327,4 @@ class StretchIKControl:
                     self.joint_pos_lim[joint_name][0], self.joint_pos_lim[joint_name][1]
                 )
             )
-        return np.array(q, dtype=np.float64)
+        return np.array(q, dtype=float)

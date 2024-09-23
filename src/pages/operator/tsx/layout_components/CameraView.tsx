@@ -49,6 +49,7 @@ import "operator/css/CameraView.css";
 import AddIcon from "@mui/icons-material/Add";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
+import PlayCircle from "@mui/icons-material/PlayCircle";
 
 /**
  * Displays a video stream with an optional button pad overlay
@@ -958,7 +959,6 @@ const UnderRealsenseButtons = (props: {
     }
 
     // Only show ShowTablet buttons if the robot has a tablet attached.
-    // TODO: Un-comment the tool conditional!
     let showTabletButtons = <></>;
     if (props.stretchTool === StretchTool.TABLET) {
         showTabletButtons = (
@@ -987,7 +987,7 @@ const UnderRealsenseButtons = (props: {
                             }}
                         >
                             <span>Cancel</span>
-                            <span className="material-icons">cancel</span>
+                            <CancelIcon />
                         </button>
                     ) : (
                         <button
@@ -1005,7 +1005,7 @@ const UnderRealsenseButtons = (props: {
                             }}
                         >
                             <span>Show Tablet</span>
-                            <span className="material-icons">play_circle</span>
+                            <PlayCircle />
                         </button>
                     ))}
             </React.Fragment>

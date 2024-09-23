@@ -10,6 +10,7 @@ import simpleaudio
 import sounddevice  # suppress ALSA warnings # noqa: F401
 from gtts import gTTS
 from pydub import AudioSegment
+from pydub.utils import ratio_to_db
 from rclpy.impl.rcutils_logger import RcutilsLogger
 
 
@@ -273,6 +274,9 @@ class GTTS(TextToSpeechEngine):
         tts.write_to_fp(fp)
         fp.seek(0)
         audio = AudioSegment.from_file(fp, format="mp3")
+        # TODO: Increasing the volume to 400% should not be hardcoded; instead,
+        # it should be part of the TTS message (like is_slow and the voice_id).
+        audio = audio.apply_gain(ratio_to_db(4.0))
         self._playback = simpleaudio.play_buffer(
             audio.raw_data, audio.channels, audio.sample_width, audio.frame_rate
         )

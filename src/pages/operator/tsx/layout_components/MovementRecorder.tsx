@@ -100,6 +100,7 @@ export const MovementRecorder = (props: {
     const JointSelectionModal = (props: {
         setShow: (show: boolean) => void;
         show: boolean;
+        setIsRecording: (isRecording: boolean) => void;
     }) => {
         const [head, setHead] = React.useState<boolean>(false);
         const [arm, setArm] = React.useState<boolean>(false);
@@ -133,7 +134,11 @@ export const MovementRecorder = (props: {
                 setShow={props.setShow}
                 show={props.show}
                 onAccept={handleAccept}
-                onCancel={() => functions.StopRecording()}
+                onCancel={() => {
+                    props.setIsRecording(false);
+                    props.setShow(false);
+                    functions.StopRecording();
+                }}
                 id="save-recording-modal"
                 acceptButtonText="Save"
                 size={isMobile ? "small" : "large"}
@@ -361,6 +366,7 @@ export const MovementRecorder = (props: {
             <JointSelectionModal
                 setShow={setShowJointSelectionModal}
                 show={showJointSelectionModal}
+                setIsRecording={setIsRecording}
             />
             <SaveRecordingModal
                 setShow={setShowSaveRecordingModal}
@@ -404,6 +410,7 @@ export const MovementRecorder = (props: {
             <JointSelectionModal
                 setShow={setShowJointSelectionModal}
                 show={showJointSelectionModal}
+                setIsRecording={setIsRecording}
             />
             <SaveRecordingModal
                 setShow={setShowSaveRecordingModal}
